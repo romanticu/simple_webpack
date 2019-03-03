@@ -51,13 +51,14 @@ function createAsset(filename) {
 function createGraph(entry) {
   const mainAsset = createAsset(entry);
     
-  //定义一个保存依赖项的数组
+  //既然要广度遍历肯定要有一个队列，第一个元素肯定是 从 "./example/entry.js" 返回的信息
   const queue = [mainAsset];
-
+  
+  
   for (const asset of queue) {
     const dirname = path.dirname(asset.filename);
 
-    //声明一个变量来保存子依赖项的数据
+    //新增一个属性来保存子依赖项的数据
     //保存类似 这样的数据结构 --->  {"./message.js" : 1}
     asset.mapping = {};
 
