@@ -4,8 +4,8 @@ const babylon = require("@babel/parser");
 const traverse = require("@babel/traverse").default;
 const babel = require("@babel/core");
 
-let ID = 0;
 
+let ID = 0;
 // 读取文件信息，并获得当前js文件的依赖关系
 function createAsset(filename) {
   //获取文件，返回值是字符串
@@ -20,9 +20,9 @@ function createAsset(filename) {
   //用来存储 文件所依赖的模块，简单来说就是，当前js文件 import 了哪些文件，都会保存在这个数组里
   const dependencies = [];
 
-  // 遍历当前抽象语法树
+  // 遍历当前ast（抽象语法树）
   traverse(ast, {
-    // 每当遍历到import语法的时候
+    // 找到有 import语法 的对应节点
     ImportDeclaration: ({ node }) => {
       // 把当前依赖的模块加入到数组中，其实这存的是字符串，
       //例如 如果当前js文件 有一句 import message from './message.js'， 
@@ -76,11 +76,11 @@ function createGraph(entry) {
   return queue;
 }
 
-// 根据生成的依赖关系图，生成浏览器可执行文件
+//根据生成的依赖关系图，生成对应环境能执行的代码，目前是生产浏览器可以执行的
 function bundle(graph) {
   let modules = "";
 
-  // 把每个模块中的代码放在一个function作用域内
+  //循环依赖关系，并把每个模块中的代码存在function作用域里
   graph.forEach(mod => {
     modules += `${mod.id}:[
       function (require, module, exports){
@@ -90,14 +90,14 @@ function bundle(graph) {
     ],`;
   });
 
-  // require, module, exports 是 cjs的标准不能再浏览器中直接使用，所以模拟了模块加载，执行，导出操作。
+  // require, module, exports 是 cjs的标准不能再浏览器中直接使用，所以这里模拟cjs模块加载，执行，导出操作。
   const result = `
     (function(modules){
-      // 创建一个require()函数: 它接受一个 模块ID 并在我们之前构建的模块对象查找它.
+      // 创建require函数， 它接受一个模块ID（这个模块id是数字0，1，2） ，它会在我们上面定义 modules 中找到对应是模块.
       function require(id){
         const [fn, mapping] = modules[id];
         function localRequire(relativePath){
-          // 根据mapping的路径，找到对应的模块id
+          // 根据模块的路径在mapping中找到对应的模块id
           return require(mapping[relativePath]);
         }
         const module = {exports:{}};
