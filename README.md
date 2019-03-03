@@ -65,7 +65,7 @@ createAsset("./example/entry.js");
 ## `createGraph`返回什么，如何找下一个依赖
 我们通过上面可以拿到entry.js依赖的模块，于是我们就可以接着去遍历`dependencies` 数组，循环调用`createAsset`这样就可以得到全部模块相互依赖的信息。想得到全部依赖信息需要调用 `createGraph` 这个一个函数，它会进行广度遍历，最终返回下面的数据
 
-![](https://user-gold-cdn.xitu.io/2019/3/2/1693efa64b43d73c?w=2320&h=1936&f=png&s=342355)
+![](https://user-images.githubusercontent.com/15076030/53696618-e8055b80-3e03-11e9-82b6-83b81f5cd82a.png)
 
 我们可以看到返回的数据，字段之前都和大家解释了，除了 `mapping`，`mapping`这个字段是把当前模块依赖的**文件名称** 和 模块的id 做一个映射，目的是为了更方便查找模块。
 
