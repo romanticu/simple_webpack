@@ -72,7 +72,8 @@ createAsset("./example/entry.js");
 ## `bundle`返回什么 && 最后步骤
 我们现在已经能拿到每个模块之前的依赖关系，我们再通过调用`bundle`函数，我们就能构造出最后的`bundle.js`，输出如下图
 
-![](https://user-gold-cdn.xitu.io/2019/3/2/1693f0740a24a5b0?w=2220&h=1946&f=png&s=432836)
+![](https://user-images.githubusercontent.com/15076030/53690721-1efb5300-3dab-11e9-9f9b-b4ef4c0691da.png)
+
 
 ## 源码
 [点击查看源码](https://github.com/dykily/simple_webpack/blob/master/bundler.js)
