@@ -57,7 +57,8 @@ function createGraph(entry) {
   for (const asset of queue) {
     const dirname = path.dirname(asset.filename);
 
-    //定义一个保存子依赖项的属性
+    //声明一个变量来保存子依赖项的数据
+    //保存类似 这样的数据结构 --->  {"./message.js" : 1}
     asset.mapping = {};
 
     asset.dependencies.forEach(relativePath => {
