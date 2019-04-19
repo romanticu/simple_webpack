@@ -6,7 +6,7 @@
 ## 实现
 由于ES6转ES5中需要用到babel，所以要用到一下插件
 
-`npm install @babel/cord @babel/traverse @babel/core @babel/preset-env --save-dev`
+`npm install @babel/core @babel/parser @babel/traverse @babel/preset-env --save-dev`
 ### 需要的文件
 使用webpack肯定少不了原文件，我们会涉及三个需要打包的js文件（`entry.js`、`message.js`、`name.js`）
 
